@@ -6,20 +6,21 @@ Find the sum of all the primes below n.
 
 
 function primeSummation(n) {
-    let prime = [false, ...Array(n - 2).fill(true)]
-    let k = 2
+    let prime = new Uint8Array(n)
+    prime[0] = prime[1] = 1
+    let sum = 0
 
-    while (k * k <= n) {
-        if (prime[k - 1]) {
+    for (let k = 2; k < n; k++) {
+        if (prime[k] == 0) {
+            sum += k
             for (let i = k * k; i <= n; i += k) {
-                prime[i - 1] = false 
+                prime[i] = 1
             }
         }
-        k++
     }
 
-    return prime.reduce((acc, x, i) => {
-        return x ? acc + (i + 1) : acc
-    }, 0)
+    return sum
 }
 
+
+console.log(primeSummation(2000000));

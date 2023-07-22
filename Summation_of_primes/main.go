@@ -4,32 +4,37 @@ The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
 Find the sum of all the primes below n.
 */
 
-package primes_sum
+package main
 
-func PrimeSummation(n int) int {
-	prime := make([]bool, n-1)
-	k := 2
+import (
+	"fmt"
+)
 
-	for i := 1; i < n-1; i++ {
-		prime[i] = true
-	}
+func primeSummation(n int) int {
+	prime := make([]int, n+1)
+	prime[0] = 1
+	prime[1] = 1
+	sum := 0
 
-	for k*k <= n {
-		if prime[k-1] {
-			for i := k * k; i < n; i += k {
-				prime[i-1] = false
+	for k := 2; k < n; k++ {
+		if prime[k] == 0 {
+			sum += k
+			for i := k * k; i <= n; i += k {
+				prime[i] = 1
 			}
 		}
-		k++
 	}
 
-	res := 0
+	return sum
+}
 
-	for i, v := range prime {
-		if v {
-			res += i + 1
+func main() {
+	for input, want := range map[int]int{17: 41, 2001: 277050, 140759: 873608362, 2000000: 142913828922} {
+		got := primeSummation(input)
+		if got != want {
+			fmt.Printf("Test failed expect: %v, got: %v", want, got)
+			break
 		}
 	}
-
-	return res
+	fmt.Println("OK")
 }
