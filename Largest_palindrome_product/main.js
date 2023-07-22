@@ -11,7 +11,6 @@ function isPalindrome(x) {
         return false
     }
     let revX = 0
-
     while (x > revX) {
         let d = x % 10
         revX = revX * 10 + d
