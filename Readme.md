@@ -19,3 +19,4 @@
     - Sum square difference
     - Multiples of 3 and 5
     - Largest palindrome product
+    - Longest Collatz sequence
